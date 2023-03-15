@@ -6,6 +6,9 @@ public class Display extends JFrame implements Displayer {
     private static Display instance;
 
     private Display() {
+        super();
+        setSize(200,200);
+        setVisible(true);
     }
 
     public static Display getInstance() {
@@ -15,26 +18,27 @@ public class Display extends JFrame implements Displayer {
 
     @Override
     public int getWidth() {
-        return 0;
+        return getContentPane().getWidth();
+
     }
 
     @Override
     public int getHeight() {
-        return 0;
+        return getContentPane().getHeight();
     }
 
     @Override
     public Graphics2D getGraphics() {
-        return null;
+        return (Graphics2D) super.getGraphics();
     }
 
     @Override
     public void repaint() {
-
+        super.repaint();
     }
 
     @Override
     public void setTitle(String title) {
-
+        super.setTitle(title);
     }
 }
