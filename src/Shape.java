@@ -1,6 +1,5 @@
 import javax.swing.JPanel;
-import java.awt.Color;
-import java.awt.Image;
+import java.awt.*;
 import java.util.Vector;
 
 abstract public class Shape extends JPanel {
@@ -12,14 +11,19 @@ abstract public class Shape extends JPanel {
     protected Color color;
 
     Shape(int x, int y, int directionX, int directionY, Color color) {
-        direction.set(0, directionX);
-        direction.set(1, directionY);
+        direction = new Vector<>();
+        direction.add(0, directionX);
+        direction.add(1, directionY);
         this.x = x;
         this.y = y;
         this.color = color;
     }
 
-    abstract Image createImage();
+    public void paint(Graphics g) {
+        super.paint(g);
+        x += direction.get(0);
+        y += direction.get(1);
+    }
 
 }
 

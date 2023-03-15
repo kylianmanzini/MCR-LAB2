@@ -1,5 +1,6 @@
-import java.awt.Image;
-import java.awt.Color;
+import java.awt.*;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 
 public class Square extends Shape {
 
@@ -11,7 +12,9 @@ public class Square extends Shape {
     }
 
     @Override
-    Image createImage() {
-        return null;
+    public void paint(Graphics g) {
+        super.paint(g);
+        g.setColor(color);
+        g.fillRect(x, y, length, length);
     }
 }

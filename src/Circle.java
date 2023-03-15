@@ -1,17 +1,18 @@
-import java.awt.Color;
-import java.awt.Image;
+import java.awt.*;
 
 public class Circle extends Shape {
 
-    protected int radius;
+    protected int diameter;
 
-    Circle(int x, int y, int directionX, int directionY, int radius, Color color) {
+    Circle(int x, int y, int directionX, int directionY, int diameter, Color color) {
         super(x, y, directionX, directionY, color);
-        this.radius = radius;
+        this.diameter = diameter;
     }
 
     @Override
-    Image createImage() {
-        return null;
+    public void paint(Graphics g) {
+        super.paint(g);
+        g.setColor(color);
+        g.fillOval(x, y, diameter, diameter);
     }
 }

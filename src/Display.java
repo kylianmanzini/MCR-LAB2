@@ -1,14 +1,18 @@
 import javax.swing.JFrame;
-import java.awt.Graphics2D;
+import java.awt.*;
 
 public class Display extends JFrame implements Displayer {
 
     private static Display instance;
 
+    private Shape shape;
+
     private Display() {
         super();
-        setSize(200,200);
+        setSize(800,800);
         setVisible(true);
+        shape = new Circle(5, 5, 1, 1, 20, Color.BLACK);
+        add(shape);
     }
 
     public static Display getInstance() {
