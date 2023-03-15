@@ -1,4 +1,5 @@
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Image;
 
 public class Circle extends Shape {
 
