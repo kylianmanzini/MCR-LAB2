@@ -3,7 +3,7 @@ import java.awt.Image;
 
 public class Circle extends Shape {
 
-    Circle(int x, int y, int directionX, int directionY, int radius, Color color){
+    Circle(int x, int y, int directionX, int directionY, int radius, Color color) {
         super(x, y, directionX, directionY, radius, color);
     }
 

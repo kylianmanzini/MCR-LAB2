@@ -1,7 +1,7 @@
 import javax.swing.JFrame;
 import java.awt.Graphics2D;
 
-public class Display extends JFrame implements Displayer{
+public class Display extends JFrame implements Displayer {
 
 
     @Override

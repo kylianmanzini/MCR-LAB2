@@ -12,7 +12,7 @@ abstract public class Shape extends JPanel {
 
     Color color;
 
-    Shape(int x, int y, int directionX, int directionY, int radius, Color color){
+    Shape(int x, int y, int directionX, int directionY, int radius, Color color) {
         direction.set(0, directionX);
         direction.set(1, directionY);
         this.radius = radius;
