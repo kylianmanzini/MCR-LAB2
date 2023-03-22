@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 
 public abstract class Circle extends Bouncer {
 
@@ -26,6 +27,6 @@ public abstract class Circle extends Bouncer {
 
     @Override
     public Shape getShape() {
-        return null;
+        return new Ellipse2D.Double(x,y,diameter,diameter);
     }
 }

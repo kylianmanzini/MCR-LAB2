@@ -1,22 +1,20 @@
 import javax.swing.JFrame;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
+import java.util.List;
 
 public class Display extends JFrame implements Displayer {
 
     private static Display instance;
 
-    private Bouncer bouncer;
 
     private Display() {
         super();
         setSize(800,800);
         setVisible(true);
-        //bouncer = new Circle(5, 5, 1, 1, 20, Color.BLACK);
-        //add(bouncer);
     }
 
-    public static Display getInstance() {
+    public static Display getInstance(List<Bouncable> bouncers) {
         if (instance == null) instance = new Display();
         return instance;
     }
@@ -24,7 +22,6 @@ public class Display extends JFrame implements Displayer {
     @Override
     public int getWidth() {
         return getContentPane().getWidth();
-
     }
 
     @Override
