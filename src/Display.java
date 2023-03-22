@@ -1,18 +1,19 @@
 import javax.swing.JFrame;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
 
 public class Display extends JFrame implements Displayer {
 
     private static Display instance;
 
-    private Shape shape;
+    private Bouncer bouncer;
 
     private Display() {
         super();
         setSize(800,800);
         setVisible(true);
-        shape = new Circle(5, 5, 1, 1, 20, Color.BLACK);
-        add(shape);
+        //bouncer = new Circle(5, 5, 1, 1, 20, Color.BLACK);
+        //add(bouncer);
     }
 
     public static Display getInstance() {
@@ -44,5 +45,10 @@ public class Display extends JFrame implements Displayer {
     @Override
     public void setTitle(String title) {
         super.setTitle(title);
+    }
+
+    @Override
+    public void addKeyListener(KeyAdapter ka) {
+
     }
 }

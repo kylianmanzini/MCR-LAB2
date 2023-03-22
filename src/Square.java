@@ -1,8 +1,6 @@
 import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 
-public class Square extends Shape {
+public abstract class Square extends Bouncer {
 
     protected int length;
 
@@ -12,9 +10,22 @@ public class Square extends Shape {
     }
 
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        g.setColor(color);
-        g.fillRect(x, y, length, length);
+    public void draw() {
+
+    }
+
+    @Override
+    public void move() {
+
+    }
+
+    @Override
+    public Color getColor() {
+        return this.color;
+    }
+
+    @Override
+    public Shape getShape() {
+        return null;
     }
 }

@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Circle extends Shape {
+public abstract class Circle extends Bouncer {
 
     protected int diameter;
 
@@ -10,9 +10,22 @@ public class Circle extends Shape {
     }
 
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        g.setColor(color);
-        g.fillOval(x, y, diameter, diameter);
+    public void draw() {
+
+    }
+
+    @Override
+    public void move() {
+
+    }
+
+    @Override
+    public Color getColor() {
+        return null;
+    }
+
+    @Override
+    public Shape getShape() {
+        return null;
     }
 }

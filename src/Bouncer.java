@@ -2,7 +2,7 @@ import javax.swing.JPanel;
 import java.awt.*;
 import java.util.Vector;
 
-abstract public class Shape extends JPanel {
+abstract public class Bouncer implements Bouncable{
 
     protected Vector<Integer> direction;
     protected int x;
@@ -10,7 +10,7 @@ abstract public class Shape extends JPanel {
 
     protected Color color;
 
-    Shape(int x, int y, int directionX, int directionY, Color color) {
+    Bouncer(int x, int y, int directionX, int directionY, Color color) {
         direction = new Vector<>();
         direction.add(0, directionX);
         direction.add(1, directionY);
@@ -19,11 +19,6 @@ abstract public class Shape extends JPanel {
         this.color = color;
     }
 
-    public void paint(Graphics g) {
-        super.paint(g);
-        x += direction.get(0);
-        y += direction.get(1);
-    }
 
 }
 
