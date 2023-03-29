@@ -2,7 +2,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.Random;
-import static java.util.Collections.shuffle;
 
 public class Bouncers {
     private final LinkedList<Bouncable> bouncers = new LinkedList<>();
