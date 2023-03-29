@@ -62,6 +62,7 @@ public class Bouncers {
             }
             lastTime = System.currentTimeMillis();
 
+            //Press 'e' -> bouncers.clear();
 
             for (Bouncable bounce : bouncers) {
                 bounce.check(display.getWidth(), display.getHeight());
