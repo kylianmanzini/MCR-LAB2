@@ -1,4 +1,4 @@
-import java.awt.*;
+import java.awt.Color;
 import java.util.Vector;
 
 abstract public class Bouncer implements Bouncable{

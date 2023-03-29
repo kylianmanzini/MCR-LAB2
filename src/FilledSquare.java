@@ -1,4 +1,4 @@
-import java.awt.*;
+import java.awt.Color;
 
 public class FilledSquare extends Square {
     FilledSquare(int x, int y, int directionX, int directionY, int length, Color color) {

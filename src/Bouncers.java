@@ -3,17 +3,18 @@ import java.util.Random;
 import static java.util.Collections.shuffle;
 
 public class Bouncers {
-    private LinkedList<Bouncable> bouncers = new LinkedList<>();
+    private final LinkedList<Bouncable> bouncers = new LinkedList<>();
+    boolean running;
 
     final int maxSize = 50;
     final int maxSpeed = 5;
 
     public Bouncers() {
-        createCircleBatch(new NotFilledFactory(), 50);
-        createCircleBatch(new FilledFactory(), 50);
-        createSquaresBatch(new FilledFactory(), 50);
-        createSquaresBatch(new NotFilledFactory(), 50);
-        shuffle(bouncers);
+        running = true;
+        createCircleBatch(new NotFilledFactory(), 5);
+        createCircleBatch(new FilledFactory(), 7);
+        createSquaresBatch(new FilledFactory(), 3);
+        createSquaresBatch(new NotFilledFactory(), 4);
     }
 
     private void createSquaresBatch(BouncerFactory factory, int amount) {
@@ -53,7 +54,7 @@ public class Bouncers {
         int fps = 25;
         long lastTime, currentTime;
         lastTime = System.currentTimeMillis() - 40;
-        while (true) {
+        while (running) {
             currentTime = System.currentTimeMillis();
             try {
                 Thread.sleep(Math.max((1000 / fps) - (currentTime - lastTime), 0));
@@ -62,6 +63,7 @@ public class Bouncers {
             }
             lastTime = System.currentTimeMillis();
 
+            //Press 'e' -> bouncers.clear();
 
             for (Bouncable bounce : bouncers) {
                 bounce.check(display.getWidth(), display.getHeight());
@@ -73,6 +75,8 @@ public class Bouncers {
                 bounce.draw();
             }
             display.repaint();
+
+            //Press 'q' -> running = false;
         }
     }
 
