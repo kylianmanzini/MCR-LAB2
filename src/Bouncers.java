@@ -1,30 +1,47 @@
 import java.awt.*;
 import java.util.LinkedList;
+import java.util.Random;
 
 public class Bouncers {
     private LinkedList<Bouncable> bouncers = new LinkedList<>();
 
+    final int maxSize = 50;
+    final int maxSpeed = 5;
+
     public Bouncers() {
-
-        BouncerFactory ff = new FilledFactory();
-        BouncerFactory nff = new NotFilledFactory();
-
-        bouncers.add(ff.createCircle(4, 6, 40, 64, 40));
-        bouncers.add(ff.createSquare(87, 63, 50, 12, 25));
-        bouncers.add(nff.createCircle(443, 6, 12, 32, 30));
-        bouncers.add(nff.createSquare(43, 64, 70, 5, 10));
-
+        createCircleBatch(new NotFilledFactory(), 5);
+        createCircleBatch(new FilledFactory(), 7);
+        createSquaresBatch(new FilledFactory(), 3);
+        createSquaresBatch(new NotFilledFactory(), 4);
     }
 
     private void createSquaresBatch(BouncerFactory factory, int amount) {
+        Display display = Display.getInstance();
+        Random r = new Random();
+
         for (int i = 0; i < amount; ++i) {
-            bouncers.add(factory.createSquare(4, 5, 1, 1, 1));
+            bouncers.add(factory.createSquare(
+                    r.nextInt(display.getWidth() - maxSize),
+                    r.nextInt(display.getHeight() - maxSize),
+                    r.nextInt(maxSize),
+                    r.nextInt(maxSpeed) * (r.nextBoolean() ? 1 : -1),
+                    r.nextInt(maxSpeed) * (r.nextBoolean() ? 1 : -1))
+            );
         }
     }
 
     private void createCircleBatch(BouncerFactory factory, int amount) {
+        Display display = Display.getInstance();
+        Random r = new Random();
+
         for (int i = 0; i < amount; ++i) {
-            bouncers.add(factory.createCircle(4, 5, 1, 1, 1));
+            bouncers.add(factory.createCircle(
+                    r.nextInt(display.getWidth() - maxSize),
+                    r.nextInt(display.getHeight() - maxSize),
+                    r.nextInt(maxSize),
+                    r.nextInt(maxSpeed) * (r.nextBoolean() ? 1 : -1),
+                    r.nextInt(maxSpeed) * (r.nextBoolean() ? 1 : -1))
+            );
         }
     }
 
@@ -45,10 +62,10 @@ public class Bouncers {
             lastTime = System.currentTimeMillis();
 
 
-            for (Bouncable bounce : bouncers){
+            for (Bouncable bounce : bouncers) {
                 bounce.check(display.getWidth(), display.getHeight());
             }
-            for (Bouncable bounce : bouncers){
+            for (Bouncable bounce : bouncers) {
                 bounce.move();
             }
             for (Bouncable bounce : bouncers) {
