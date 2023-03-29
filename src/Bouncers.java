@@ -6,15 +6,16 @@ public class Bouncers {
 
     public Bouncers() {
 
-        bouncers.add(new FilledCircle(4,6,1,1,4, Color.BLUE));
-        bouncers.add(new FilledCircle(87,63,1,1,4, Color.RED));
-        bouncers.add(new FilledCircle(443,6,1,1,4, Color.GRAY));
-        bouncers.add(new FilledCircle(43,64,1,1,4, Color.GREEN));
+        bouncers.add(new FilledCircle(4,6,1,1,40, Color.BLUE));
+        bouncers.add(new FilledCircle(87,63,1,1,25, Color.RED));
+        bouncers.add(new NotFilledCircle(443,6,1,1,30, Color.GRAY));
+        bouncers.add(new NotFilledCircle(43,64,1,1,10, Color.GREEN));
 
     }
     public void run() {
-        Display display = Display.getInstance(bouncers);
-        Renderer render = new Render();
+
+        Display display = Display.getInstance();
+
         int fps = 25;
         long lastTime, currentTime;
         lastTime = System.currentTimeMillis() - 40;
@@ -29,14 +30,12 @@ public class Bouncers {
 
 
             for (Bouncable bounce : bouncers){
-                render.display(display.getGraphics(),bounce);
+                bounce.move();
             }
-            // TODO : Whatever you want
-            /*
-            JFrame frame = new JFrame();
-            frame.setSize(1000, 1000);
-            frame.setVisible(true);
-            */
+            for (Bouncable bounce : bouncers){
+                bounce.draw();
+            }
+            display.repaint();
         }
     }
     public static void main(String ... args) {

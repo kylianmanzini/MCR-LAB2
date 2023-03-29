@@ -11,22 +11,7 @@ public abstract class Circle extends Bouncer {
     }
 
     @Override
-    public void draw() {
-
-    }
-
-    @Override
-    public void move() {
-
-    }
-
-    @Override
-    public Color getColor() {
-        return null;
-    }
-
-    @Override
-    public Shape getShape() {
+    public Ellipse2D.Double getShape() {
         return new Ellipse2D.Double(x,y,diameter,diameter);
     }
 }

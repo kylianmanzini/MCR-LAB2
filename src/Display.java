@@ -1,51 +1,73 @@
-import javax.swing.JFrame;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.util.List;
 
-public class Display extends JFrame implements Displayer {
+public class Display implements Displayer {
 
+    static final int WINDOW_SIZE = 500;
     private static Display instance;
+    private final JPanel panel;
+    public final JFrame frame;
+    private final Image image;
 
 
     private Display() {
-        super();
-        setSize(800,800);
-        setVisible(true);
+        frame = new JFrame();
+        frame.setSize(WINDOW_SIZE,WINDOW_SIZE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+        panel = new JPanel();
+        panel.setBackground(Color.WHITE);
+        panel.setSize(WINDOW_SIZE,WINDOW_SIZE);
+        frame.setContentPane(panel);
+
+        frame.setVisible(true);
+
+        image = panel.createImage(WINDOW_SIZE,WINDOW_SIZE);
     }
 
-    public static Display getInstance(List<Bouncable> bouncers) {
+    public static Display getInstance() {
         if (instance == null) instance = new Display();
         return instance;
     }
 
     @Override
     public int getWidth() {
-        return getContentPane().getWidth();
+        return panel.getWidth();
     }
 
     @Override
     public int getHeight() {
-        return getContentPane().getHeight();
+        return panel.getHeight();
     }
 
     @Override
     public Graphics2D getGraphics() {
-        return (Graphics2D) super.getGraphics();
+        return (Graphics2D) image.getGraphics();
     }
 
     @Override
     public void repaint() {
-        super.repaint();
+        panel.getGraphics().drawImage(image,0,0,null);
+
+        Graphics2D g = getGraphics();
+        g.clearRect(0, 0, getWidth(), getHeight());
+        g.dispose();
     }
 
     @Override
     public void setTitle(String title) {
-        super.setTitle(title);
+        frame.setTitle(title);
     }
 
     @Override
     public void addKeyListener(KeyAdapter ka) {
+        addKeyListener(ka);
+    }
 
+    private Image createImage(){
+        return panel.createImage(getWidth(),getHeight());
     }
 }

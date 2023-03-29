@@ -1,4 +1,3 @@
-import javax.swing.JPanel;
 import java.awt.*;
 import java.util.Vector;
 
@@ -19,6 +18,21 @@ abstract public class Bouncer implements Bouncable{
         this.color = color;
     }
 
+    @Override
+    public void move() {
+
+    }
+
+    @Override
+    public Color getColor() {
+        return this.color;
+    }
+    @Override
+    public void draw() {
+        getRenderer().display(Display.getInstance().getGraphics(), this);
+    }
+
+    protected abstract Renderer getRenderer();
 
 }
 

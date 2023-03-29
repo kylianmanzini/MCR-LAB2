@@ -5,4 +5,9 @@ public class FilledCircle extends Circle{
         super(x, y, directionX, directionY, diameter, color);
     }
 
+
+    @Override
+    protected Renderer getRenderer() {
+        return new FilledRender();
+    }
 }
