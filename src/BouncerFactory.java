@@ -1,14 +1,8 @@
+import java.awt.Color;
+
 public abstract class BouncerFactory {
 
-    BouncerFactory(){
+    abstract Circle createCircle(int x, int y, int diameter, int directionX, int directionY);
 
-    };
-
-    void createCircle() {
-
-    }
-
-    void createSquare() {
-
-    }
+    abstract Square createSquare(int x, int y, int size, int directionX, int directionY);
 }
