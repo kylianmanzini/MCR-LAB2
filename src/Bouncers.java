@@ -31,6 +31,12 @@ public class Bouncers {
             for (Bouncable bounce : bouncers){
                 render.display(display.getGraphics(),bounce);
             }
+            // TODO : Whatever you want
+            /*
+            JFrame frame = new JFrame();
+            frame.setSize(1000, 1000);
+            frame.setVisible(true);
+            */
         }
     }
     public static void main(String ... args) {
