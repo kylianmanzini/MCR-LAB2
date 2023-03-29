@@ -9,10 +9,10 @@ public class Bouncers {
         BouncerFactory ff = new FilledFactory();
         BouncerFactory nff = new NotFilledFactory();
 
-        bouncers.add(ff.createCircle(4, 6, 1, 1, 40));
-        bouncers.add(ff.createCircle(87, 63, 1, 1, 25));
-        bouncers.add(nff.createCircle(443, 6, 1, 1, 30));
-        bouncers.add(nff.createCircle(43, 64, 1, 1, 10));
+        bouncers.add(ff.createCircle(4, 6, 40, 64, 40));
+        bouncers.add(ff.createSquare(87, 63, 50, 12, 25));
+        bouncers.add(nff.createCircle(443, 6, 12, 32, 30));
+        bouncers.add(nff.createSquare(43, 64, 70, 5, 10));
 
     }
 

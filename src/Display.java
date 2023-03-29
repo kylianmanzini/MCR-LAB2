@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.util.List;
 
@@ -9,7 +11,7 @@ public class Display implements Displayer {
     private static Display instance;
     private final JPanel panel;
     public final JFrame frame;
-    private final Image image;
+    private Image image;
 
 
     private Display() {
@@ -26,6 +28,13 @@ public class Display implements Displayer {
         frame.setVisible(true);
 
         image = panel.createImage(WINDOW_SIZE,WINDOW_SIZE);
+
+        frame.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                image = createImage();
+            }
+        });
     }
 
     public static Display getInstance() {

@@ -34,16 +34,6 @@ abstract public class Bouncer implements Bouncable{
     }
 
     @Override
-    public void check(int width, int height){
-        if (x <= 0 || x >= width){
-            directionX = -directionX;
-        }
-        if (y <= 0 || y >= height){
-            directionY = -directionY;
-        }
-    }
-
-    @Override
     public Color getColor() {
         return this.color;
     }
