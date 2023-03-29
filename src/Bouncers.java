@@ -6,9 +6,9 @@ public class Bouncers {
 
     public Bouncers() {
 
-        bouncers.add(new FilledCircle(4,6,1,1,40, Color.BLUE));
+        bouncers.add(new FilledSquare(4,6,1,1,40, Color.BLUE));
         bouncers.add(new FilledCircle(87,63,1,1,25, Color.RED));
-        bouncers.add(new NotFilledCircle(443,6,1,1,30, Color.GRAY));
+        bouncers.add(new NotFilledSquare(443,6,1,1,30, Color.GRAY));
         bouncers.add(new NotFilledCircle(43,64,1,1,10, Color.GREEN));
 
     }
@@ -29,6 +29,9 @@ public class Bouncers {
             lastTime = System.currentTimeMillis();
 
 
+            for (Bouncable bounce : bouncers){
+                bounce.check(display.getWidth(), display.getHeight());
+            }
             for (Bouncable bounce : bouncers){
                 bounce.move();
             }

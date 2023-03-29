@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 public abstract class Square extends Bouncer {
 
@@ -10,22 +11,7 @@ public abstract class Square extends Bouncer {
     }
 
     @Override
-    public void draw() {
-
-    }
-
-    @Override
-    public void move() {
-
-    }
-
-    @Override
-    public Color getColor() {
-        return this.color;
-    }
-
-    @Override
-    public Shape getShape() {
-        return null;
+    public Rectangle2D.Double getShape() {
+        return new Rectangle2D.Double(x,y,length,length);
     }
 }

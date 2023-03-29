@@ -7,6 +7,6 @@ public class NotFilledSquare extends Square{
 
     @Override
     protected Renderer getRenderer() {
-        return null;
+        return NotFilledRender.getInstance();
     }
 }

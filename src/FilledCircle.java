@@ -8,6 +8,6 @@ public class FilledCircle extends Circle{
 
     @Override
     protected Renderer getRenderer() {
-        return new FilledRender();
+        return FilledRender.getInstance();
     }
 }

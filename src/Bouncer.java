@@ -3,24 +3,44 @@ import java.util.Vector;
 
 abstract public class Bouncer implements Bouncable{
 
-    protected Vector<Integer> direction;
+    protected int directionX;
+    protected int directionY;
     protected int x;
     protected int y;
 
     protected Color color;
 
     Bouncer(int x, int y, int directionX, int directionY, Color color) {
-        direction = new Vector<>();
-        direction.add(0, directionX);
-        direction.add(1, directionY);
+        this.directionX = directionX;
+        this.directionY = directionY;
         this.x = x;
         this.y = y;
+        this.color = color;
+    }
+    Bouncer(Vector<Integer> position, Vector<Integer> direction, Color color) {
+        if (position.capacity() != 2 || direction.capacity() != 2)
+            throw new RuntimeException("position and direction must be vector of size 2. (x, y)");
+        this.directionX = direction.elementAt(0);
+        this.directionY = direction.elementAt(1);
+        this.x = position.elementAt(0);
+        this.y = position.elementAt(1);
         this.color = color;
     }
 
     @Override
     public void move() {
+        x += directionX;
+        y += directionY;
+    }
 
+    @Override
+    public void check(int width, int height){
+        if (x <= 0 || x >= width){
+            directionX = -directionX;
+        }
+        if (y <= 0 || y >= height){
+            directionY = -directionY;
+        }
     }
 
     @Override

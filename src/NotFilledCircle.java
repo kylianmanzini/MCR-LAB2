@@ -7,6 +7,6 @@ public class NotFilledCircle extends Circle{
 
     @Override
     protected Renderer getRenderer() {
-        return new NotFilledRender();
+        return NotFilledRender.getInstance();
     }
 }

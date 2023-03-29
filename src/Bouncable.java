@@ -6,4 +6,5 @@ public interface Bouncable {
     void move();
     Color getColor();
     Shape getShape();
+    void check(int width, int height);
 }
