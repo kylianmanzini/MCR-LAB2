@@ -1,4 +1,4 @@
-import java.awt.*;
+import java.awt.Color;
 
 public class FilledCircle extends Circle{
     FilledCircle(int x, int y, int directionX, int directionY, int diameter, Color color) {
