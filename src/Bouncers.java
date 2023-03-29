@@ -14,10 +14,6 @@ public class Bouncers {
 
     public Bouncers() {
         running = true;
-        createCircleBatch(NotFilledFactory.getInstance(), 5);
-        createSquaresBatch(FilledFactory.getInstance(), 3);
-        createSquaresBatch(NotFilledFactory.getInstance(), 4);
-        createCircleBatch(FilledFactory.getInstance(), 7);
     }
 
     private void createSquaresBatch(BouncerFactory factory, int amount) {
