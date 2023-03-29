@@ -6,12 +6,28 @@ public class Bouncers {
 
     public Bouncers() {
 
-        bouncers.add(new FilledSquare(4,6,1,1,40, Color.BLUE));
-        bouncers.add(new FilledCircle(87,63,1,1,25, Color.RED));
-        bouncers.add(new NotFilledSquare(443,6,1,1,30, Color.GRAY));
-        bouncers.add(new NotFilledCircle(43,64,1,1,10, Color.GREEN));
+        BouncerFactory ff = new FilledFactory();
+        BouncerFactory nff = new NotFilledFactory();
+
+        bouncers.add(ff.createCircle(4, 6, 1, 1, 40));
+        bouncers.add(ff.createCircle(87, 63, 1, 1, 25));
+        bouncers.add(nff.createCircle(443, 6, 1, 1, 30));
+        bouncers.add(nff.createCircle(43, 64, 1, 1, 10));
 
     }
+
+    private void createSquaresBatch(BouncerFactory factory, int amount) {
+        for (int i = 0; i < amount; ++i) {
+            bouncers.add(factory.createSquare(4, 5, 1, 1, 1));
+        }
+    }
+
+    private void createCircleBatch(BouncerFactory factory, int amount) {
+        for (int i = 0; i < amount; ++i) {
+            bouncers.add(factory.createCircle(4, 5, 1, 1, 1));
+        }
+    }
+
     public void run() {
 
         Display display = Display.getInstance();
@@ -35,13 +51,14 @@ public class Bouncers {
             for (Bouncable bounce : bouncers){
                 bounce.move();
             }
-            for (Bouncable bounce : bouncers){
+            for (Bouncable bounce : bouncers) {
                 bounce.draw();
             }
             display.repaint();
         }
     }
-    public static void main(String ... args) {
+
+    public static void main(String... args) {
         new Bouncers().run();
     }
 }
