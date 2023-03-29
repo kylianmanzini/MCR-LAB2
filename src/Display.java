@@ -76,7 +76,7 @@ public class Display implements Displayer {
 
     @Override
     public void addKeyListener(KeyAdapter ka) {
-        addKeyListener(ka);
+        frame.addKeyListener(ka);
     }
 
     private Image createImage(){

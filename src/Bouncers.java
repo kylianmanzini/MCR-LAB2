@@ -1,3 +1,5 @@
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.Random;
 import static java.util.Collections.shuffle;
@@ -6,15 +8,16 @@ public class Bouncers {
     private final LinkedList<Bouncable> bouncers = new LinkedList<>();
     boolean running;
 
-    final int maxSize = 50;
-    final int maxSpeed = 5;
+    final int MAX_SIZE = 50;
+    final int MAX_SPEED = 5;
+    final int FPS = 25;
 
     public Bouncers() {
         running = true;
-        createCircleBatch(new NotFilledFactory(), 5);
-        createCircleBatch(new FilledFactory(), 7);
-        createSquaresBatch(new FilledFactory(), 3);
-        createSquaresBatch(new NotFilledFactory(), 4);
+        createCircleBatch(NotFilledFactory.getInstance(), 5);
+        createSquaresBatch(FilledFactory.getInstance(), 3);
+        createSquaresBatch(NotFilledFactory.getInstance(), 4);
+        createCircleBatch(FilledFactory.getInstance(), 7);
     }
 
     private void createSquaresBatch(BouncerFactory factory, int amount) {
@@ -23,11 +26,11 @@ public class Bouncers {
 
         for (int i = 0; i < amount; ++i) {
             bouncers.add(factory.createSquare(
-                    r.nextInt(display.getWidth() - maxSize),
-                    r.nextInt(display.getHeight() - maxSize),
-                    r.nextInt(maxSize),
-                    r.nextInt(maxSpeed) * (r.nextBoolean() ? 1 : -1),
-                    r.nextInt(maxSpeed) * (r.nextBoolean() ? 1 : -1))
+                    r.nextInt(display.getWidth() - MAX_SIZE),
+                    r.nextInt(display.getHeight() - MAX_SIZE),
+                    r.nextInt(MAX_SIZE),
+                    r.nextInt(MAX_SPEED) * (r.nextBoolean() ? 1 : -1),
+                    r.nextInt(MAX_SPEED) * (r.nextBoolean() ? 1 : -1))
             );
         }
     }
@@ -38,11 +41,11 @@ public class Bouncers {
 
         for (int i = 0; i < amount; ++i) {
             bouncers.add(factory.createCircle(
-                    r.nextInt(display.getWidth() - maxSize),
-                    r.nextInt(display.getHeight() - maxSize),
-                    r.nextInt(maxSize),
-                    r.nextInt(maxSpeed) * (r.nextBoolean() ? 1 : -1),
-                    r.nextInt(maxSpeed) * (r.nextBoolean() ? 1 : -1))
+                    r.nextInt(display.getWidth() - MAX_SIZE),
+                    r.nextInt(display.getHeight() - MAX_SIZE),
+                    r.nextInt(MAX_SIZE),
+                    r.nextInt(MAX_SPEED) * (r.nextBoolean() ? 1 : -1),
+                    r.nextInt(MAX_SPEED) * (r.nextBoolean() ? 1 : -1))
             );
         }
     }
@@ -51,19 +54,36 @@ public class Bouncers {
 
         Display display = Display.getInstance();
 
-        int fps = 25;
+        Display.getInstance().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent keyEvent) {
+                switch (keyEvent.getKeyCode()) {
+                    case KeyEvent.VK_E -> bouncers.clear();
+                    case KeyEvent.VK_B -> {
+                        createSquaresBatch(NotFilledFactory.getInstance(), 5);
+                        createCircleBatch(NotFilledFactory.getInstance(), 5);
+                    }
+                    case KeyEvent.VK_F -> {
+                        createCircleBatch(FilledFactory.getInstance(), 5);
+                        createSquaresBatch(FilledFactory.getInstance(), 5);
+                    }
+                    case KeyEvent.VK_Q -> System.exit(0);
+                }
+            }
+        });
+
+
         long lastTime, currentTime;
         lastTime = System.currentTimeMillis() - 40;
         while (running) {
             currentTime = System.currentTimeMillis();
             try {
-                Thread.sleep(Math.max((1000 / fps) - (currentTime - lastTime), 0));
+                Thread.sleep(Math.max((1000 / FPS) - (currentTime - lastTime), 0));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             lastTime = System.currentTimeMillis();
 
-            //Press 'e' -> bouncers.clear();
 
             for (Bouncable bounce : bouncers) {
                 bounce.check(display.getWidth(), display.getHeight());
@@ -76,7 +96,6 @@ public class Bouncers {
             }
             display.repaint();
 
-            //Press 'q' -> running = false;
         }
     }
 
