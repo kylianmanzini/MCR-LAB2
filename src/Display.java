@@ -1,13 +1,15 @@
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
-import java.util.List;
 
 public class Display implements Displayer {
 
     static final int WINDOW_SIZE = 500;
+    static final int MIN_HEIGHT = 100;
+    static final int MIN_WIDTH = 200;
     private static Display instance;
     private final JPanel panel;
     public final JFrame frame;
@@ -17,6 +19,7 @@ public class Display implements Displayer {
     private Display() {
         frame = new JFrame();
         frame.setSize(WINDOW_SIZE,WINDOW_SIZE);
+        frame.setMinimumSize(new Dimension(MIN_WIDTH,MIN_HEIGHT));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
@@ -27,7 +30,7 @@ public class Display implements Displayer {
 
         frame.setVisible(true);
 
-        image = panel.createImage(WINDOW_SIZE,WINDOW_SIZE);
+        image = createImage();
 
         frame.addComponentListener(new ComponentAdapter() {
             @Override

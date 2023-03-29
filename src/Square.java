@@ -12,11 +12,21 @@ public abstract class Square extends Bouncer {
 
     @Override
     public void check(int width, int height){
-        if (x <= 0 || x >= width - length){
+        if (x < 0){
             directionX = -directionX;
+            x = 0;
         }
-        if (y <= 0 || y >= height - length){
+        if (x > width - length){
+            directionX = -directionX;
+            x = width - length;
+        }
+        if (y < 0){
             directionY = -directionY;
+            y = 0;
+        }
+        if (y > height - length){
+            directionY = -directionY;
+            y = height - length;
         }
     }
 

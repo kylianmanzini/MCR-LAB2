@@ -12,11 +12,21 @@ public abstract class Circle extends Bouncer {
 
     @Override
     public void check(int width, int height){
-        if (x <= 0 || x >= width - diameter){
+        if (x < 0){
             directionX = -directionX;
+            x = 0;
         }
-        if (y <= 0 || y >= height - diameter){
+        if (x > width - diameter){
+            directionX = -directionX;
+            x = width - diameter;
+        }
+        if (y < 0){
             directionY = -directionY;
+            y = 0;
+        }
+        if (y > height - diameter){
+            directionY = -directionY;
+            y = height - diameter;
         }
     }
 

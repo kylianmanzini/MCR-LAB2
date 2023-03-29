@@ -1,6 +1,6 @@
-import java.awt.*;
 import java.util.LinkedList;
 import java.util.Random;
+import static java.util.Collections.shuffle;
 
 public class Bouncers {
     private LinkedList<Bouncable> bouncers = new LinkedList<>();
@@ -9,10 +9,11 @@ public class Bouncers {
     final int maxSpeed = 5;
 
     public Bouncers() {
-        createCircleBatch(new NotFilledFactory(), 5);
-        createCircleBatch(new FilledFactory(), 7);
-        createSquaresBatch(new FilledFactory(), 3);
-        createSquaresBatch(new NotFilledFactory(), 4);
+        createCircleBatch(new NotFilledFactory(), 50);
+        createCircleBatch(new FilledFactory(), 50);
+        createSquaresBatch(new FilledFactory(), 50);
+        createSquaresBatch(new NotFilledFactory(), 50);
+        shuffle(bouncers);
     }
 
     private void createSquaresBatch(BouncerFactory factory, int amount) {
@@ -72,6 +73,13 @@ public class Bouncers {
                 bounce.draw();
             }
             display.repaint();
+        }
+    }
+
+    public void checkAllBouncables(){
+        Display display = Display.getInstance();
+        for (Bouncable bounce : bouncers) {
+            bounce.check(display.getWidth(), display.getHeight());
         }
     }
 
