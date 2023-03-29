@@ -80,13 +80,6 @@ public class Bouncers {
         }
     }
 
-    public void checkAllBouncables(){
-        Display display = Display.getInstance();
-        for (Bouncable bounce : bouncers) {
-            bounce.check(display.getWidth(), display.getHeight());
-        }
-    }
-
     public static void main(String... args) {
         new Bouncers().run();
     }
