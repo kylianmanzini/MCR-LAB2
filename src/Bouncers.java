@@ -2,10 +2,13 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.concurrent.locks.*;
 
 public class Bouncers {
     private final LinkedList<Bouncable> bouncers = new LinkedList<>();
     boolean running;
+
+    private final Lock mutex = new ReentrantLock();
 
     final int MAX_SIZE = 50;
     final int MAX_SPEED = 5;
@@ -53,14 +56,22 @@ public class Bouncers {
             @Override
             public void keyPressed(KeyEvent keyEvent) {
                 switch (keyEvent.getKeyCode()) {
-                    case KeyEvent.VK_E -> bouncers.clear();
+                    case KeyEvent.VK_E -> {
+                        mutex.lock();
+                        bouncers.clear();
+                        mutex.unlock();
+                    }
                     case KeyEvent.VK_B -> {
+                        mutex.lock();
                         createSquaresBatch(NotFilledFactory.getInstance(), 5);
                         createCircleBatch(NotFilledFactory.getInstance(), 5);
+                        mutex.unlock();
                     }
                     case KeyEvent.VK_F -> {
+                        mutex.lock();
                         createCircleBatch(FilledFactory.getInstance(), 5);
                         createSquaresBatch(FilledFactory.getInstance(), 5);
+                        mutex.unlock();
                     }
                     case KeyEvent.VK_Q -> System.exit(0);
                 }
@@ -71,6 +82,7 @@ public class Bouncers {
         long lastTime, currentTime;
         lastTime = System.currentTimeMillis() - 40;
         while (running) {
+
             currentTime = System.currentTimeMillis();
             try {
                 Thread.sleep(Math.max((1000 / FPS) - (currentTime - lastTime), 0));
@@ -79,6 +91,7 @@ public class Bouncers {
             }
             lastTime = System.currentTimeMillis();
 
+            mutex.lock();
 
             for (Bouncable bounce : bouncers) {
                 bounce.check(display.getWidth(), display.getHeight());
@@ -90,6 +103,8 @@ public class Bouncers {
                 bounce.draw();
             }
             display.repaint();
+
+            mutex.unlock();
 
         }
     }
