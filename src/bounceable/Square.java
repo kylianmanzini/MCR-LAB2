@@ -1,9 +1,11 @@
+package bounceable;
+
 import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 
 public abstract class Square extends Bouncer {
 
-    protected int length;
+    private final int length;
 
     Square(int x, int y, int directionX, int directionY, int length, Color color) {
         super(x, y, directionX, directionY, color);
@@ -11,7 +13,7 @@ public abstract class Square extends Bouncer {
     }
 
     @Override
-    public void check(int width, int height){
+    protected void bounceChecker(int width, int height){
         if (x < 0){
             directionX = -directionX;
             x = 0;

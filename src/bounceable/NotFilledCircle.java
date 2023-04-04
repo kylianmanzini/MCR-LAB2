@@ -1,7 +1,12 @@
+package bounceable;
+
+import display.renderer.Renderer;
+import display.renderer.NotFilledRender;
+
 import java.awt.Color;
 
 public class NotFilledCircle extends Circle{
-    NotFilledCircle(int x, int y, int directionX, int directionY, int diameter, Color color) {
+    public NotFilledCircle(int x, int y, int directionX, int directionY, int diameter, Color color) {
         super(x, y, directionX, directionY, diameter, color);
     }
 

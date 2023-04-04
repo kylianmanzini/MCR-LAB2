@@ -1,10 +1,12 @@
+package bounceable;
+
 import java.awt.Color;
 import java.awt.Shape;
 
-public interface Bouncable {
+public interface Bounceable {
     void draw();
-    void move();
+    void move(int width, int height);
     Color getColor();
     Shape getShape();
-    void check(int width, int height);
+
 }

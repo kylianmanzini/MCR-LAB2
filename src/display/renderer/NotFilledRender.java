@@ -1,9 +1,13 @@
+package display.renderer;
+
+import bounceable.Bounceable;
+
 import java.awt.*;
 
 public class NotFilledRender implements Renderer {
-    static final BasicStroke STROKE = new BasicStroke(5);
+    static private final BasicStroke STROKE = new BasicStroke(5);
 
-    static NotFilledRender instance;
+    static private NotFilledRender instance;
 
     private NotFilledRender(){};
 
@@ -15,7 +19,7 @@ public class NotFilledRender implements Renderer {
     }
 
     @Override
-    public void display(Graphics2D g, Bouncable b) {
+    public void display(Graphics2D g, Bounceable b) {
         g.setStroke(STROKE);
         g.setPaint(b.getColor());
         g.draw(b.getShape());

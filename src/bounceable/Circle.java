@@ -1,9 +1,11 @@
+package bounceable;
+
 import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 
 public abstract class Circle extends Bouncer {
 
-    protected int diameter;
+    private final int diameter;
 
     Circle(int x, int y, int directionX, int directionY, int diameter, Color color) {
         super(x, y, directionX, directionY, color);
@@ -11,7 +13,7 @@ public abstract class Circle extends Bouncer {
     }
 
     @Override
-    public void check(int width, int height){
+    protected void bounceChecker(int width, int height){
         if (x < 0){
             directionX = -directionX;
             x = 0;

@@ -1,7 +1,12 @@
+package bounceable;
+
+import display.Display;
+import display.renderer.Renderer;
+
 import java.awt.Color;
 import java.util.Vector;
 
-abstract public class Bouncer implements Bouncable{
+abstract public class Bouncer implements Bounceable {
 
     protected int directionX;
     protected int directionY;
@@ -27,8 +32,16 @@ abstract public class Bouncer implements Bouncable{
         this.color = color;
     }
 
+    /**
+     * Check if Bouncable must bounce
+     * @param width width of the pane to bounce on
+     * @param height height of the pane to bounce on
+     */
+    abstract protected void bounceChecker(int width, int height);
+
     @Override
-    public void move() {
+    public void move(int width, int height) {
+        bounceChecker(width, height);
         x += directionX;
         y += directionY;
     }
@@ -42,6 +55,10 @@ abstract public class Bouncer implements Bouncable{
         getRenderer().display(Display.getInstance().getGraphics(), this);
     }
 
+    /**
+     * Get the correct Renderer according to the type of the caller
+     * @return a object that implement the Renderer interface
+     */
     protected abstract Renderer getRenderer();
 
 }

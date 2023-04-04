@@ -1,7 +1,11 @@
+package bounceable;
+
+import display.renderer.Renderer;
+import display.renderer.NotFilledRender;
 import java.awt.*;
 
 public class NotFilledSquare extends Square{
-    NotFilledSquare(int x, int y, int directionX, int directionY, int length, Color color) {
+    public NotFilledSquare(int x, int y, int directionX, int directionY, int length, Color color) {
         super(x, y, directionX, directionY, length, color);
     }
 

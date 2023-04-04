@@ -1,3 +1,4 @@
+package display;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,35 +12,43 @@ public class Display implements Displayer {
     static final int MIN_HEIGHT = 100;
     static final int MIN_WIDTH = 200;
     private static Display instance;
-    private final JPanel panel;
-    public final JFrame frame;
-    private Image image;
+    private final JPanel content;
+    public final JFrame window;
+    private Image img;
 
 
     private Display() {
-        frame = new JFrame();
-        frame.setSize(WINDOW_SIZE,WINDOW_SIZE);
-        frame.setMinimumSize(new Dimension(MIN_WIDTH,MIN_HEIGHT));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window = new JFrame();
+        window.setSize(WINDOW_SIZE,WINDOW_SIZE);
+        window.setMinimumSize(new Dimension(MIN_WIDTH,MIN_HEIGHT));
+        window.setTitle("Bouncers");
 
 
-        panel = new JPanel();
-        panel.setBackground(Color.WHITE);
-        panel.setSize(WINDOW_SIZE,WINDOW_SIZE);
-        frame.setContentPane(panel);
+        content = new JPanel();
+        content.setSize(WINDOW_SIZE,WINDOW_SIZE);
+        content.setBackground(Color.WHITE);
+        window.setContentPane(content);
 
-        frame.setVisible(true);
 
-        image = createImage();
 
-        frame.addComponentListener(new ComponentAdapter() {
+        // trigger when window is resized
+        window.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                image = createImage();
+                img = createImage();
             }
         });
+
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setVisible(true);
+
+        img = createImage();
     }
 
+
+    /**
+     * Create or return the Display instance
+     */
     public static Display getInstance() {
         if (instance == null) instance = new Display();
         return instance;
@@ -47,39 +56,39 @@ public class Display implements Displayer {
 
     @Override
     public int getWidth() {
-        return panel.getWidth();
+        return content.getWidth();
     }
 
     @Override
     public int getHeight() {
-        return panel.getHeight();
+        return content.getHeight();
     }
 
     @Override
     public Graphics2D getGraphics() {
-        return (Graphics2D) image.getGraphics();
+        return (Graphics2D) img.getGraphics();
     }
 
     @Override
     public void repaint() {
-        panel.getGraphics().drawImage(image,0,0,null);
-
+        content.getGraphics().drawImage(img,0,0,null);
         Graphics2D g = getGraphics();
+
         g.clearRect(0, 0, getWidth(), getHeight());
         g.dispose();
     }
 
     @Override
     public void setTitle(String title) {
-        frame.setTitle(title);
+        window.setTitle(title);
     }
 
     @Override
     public void addKeyListener(KeyAdapter ka) {
-        frame.addKeyListener(ka);
+        window.addKeyListener(ka);
     }
 
     private Image createImage(){
-        return panel.createImage(getWidth(),getHeight());
+        return content.createImage(getWidth(),getHeight());
     }
 }

@@ -1,3 +1,14 @@
+/**
+ *  MCR - Laboratoire 2 Bouncers
+ *  Rui Manuel Mota Carneiro, Kylian Manzini
+ */
+
+import bounceable.Bounceable;
+import display.Display;
+import factory.BouncerFactory;
+import factory.FilledFactory;
+import factory.NotFilledFactory;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
@@ -5,10 +16,10 @@ import java.util.Random;
 import java.util.concurrent.locks.*;
 
 public class Bouncers {
-    private final LinkedList<Bouncable> bouncers = new LinkedList<>();
-    boolean running;
+    private final LinkedList<Bounceable> BOUNCERS = new LinkedList<>();
+    private boolean running;
 
-    private final Lock mutex = new ReentrantLock();
+    private final Lock MUTEX = new ReentrantLock();
 
     final int MAX_SIZE = 50;
     final int MAX_SPEED = 5;
@@ -23,7 +34,7 @@ public class Bouncers {
         Random r = new Random();
 
         for (int i = 0; i < amount; ++i) {
-            bouncers.add(factory.createSquare(
+            BOUNCERS.add(factory.createSquare(
                     r.nextInt(display.getWidth() - MAX_SIZE),
                     r.nextInt(display.getHeight() - MAX_SIZE),
                     r.nextInt(MAX_SIZE),
@@ -38,7 +49,7 @@ public class Bouncers {
         Random r = new Random();
 
         for (int i = 0; i < amount; ++i) {
-            bouncers.add(factory.createCircle(
+            BOUNCERS.add(factory.createCircle(
                     r.nextInt(display.getWidth() - MAX_SIZE),
                     r.nextInt(display.getHeight() - MAX_SIZE),
                     r.nextInt(MAX_SIZE),
@@ -57,23 +68,25 @@ public class Bouncers {
             public void keyPressed(KeyEvent keyEvent) {
                 switch (keyEvent.getKeyCode()) {
                     case KeyEvent.VK_E -> {
-                        mutex.lock();
-                        bouncers.clear();
-                        mutex.unlock();
+                        MUTEX.lock();
+                        BOUNCERS.clear();
+                        MUTEX.unlock();
                     }
                     case KeyEvent.VK_B -> {
-                        mutex.lock();
+                        MUTEX.lock();
                         createSquaresBatch(NotFilledFactory.getInstance(), 5);
                         createCircleBatch(NotFilledFactory.getInstance(), 5);
-                        mutex.unlock();
+                        MUTEX.unlock();
                     }
                     case KeyEvent.VK_F -> {
-                        mutex.lock();
+                        MUTEX.lock();
                         createCircleBatch(FilledFactory.getInstance(), 5);
                         createSquaresBatch(FilledFactory.getInstance(), 5);
-                        mutex.unlock();
+                        MUTEX.unlock();
                     }
-                    case KeyEvent.VK_Q -> System.exit(0);
+                    case KeyEvent.VK_Q ->
+                        running = false;
+
                 }
             }
         });
@@ -91,22 +104,20 @@ public class Bouncers {
             }
             lastTime = System.currentTimeMillis();
 
-            mutex.lock();
 
-            for (Bouncable bounce : bouncers) {
-                bounce.check(display.getWidth(), display.getHeight());
+            MUTEX.lock();
+
+            for (Bounceable bounce : BOUNCERS) {
+                bounce.move(display.getWidth(), display.getHeight());
             }
-            for (Bouncable bounce : bouncers) {
-                bounce.move();
-            }
-            for (Bouncable bounce : bouncers) {
+            for (Bounceable bounce : BOUNCERS) {
                 bounce.draw();
             }
             display.repaint();
 
-            mutex.unlock();
-
+            MUTEX.unlock();
         }
+        System.exit(0);
     }
 
     public static void main(String... args) {
